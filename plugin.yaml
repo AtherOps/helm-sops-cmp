@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ConfigManagementPlugin
+metadata:
+  name: helm-secrets
+spec:
+  init:
+    command: [sh, -c]
+    args: ["helm dependency build 2>/dev/null || true"]
+  generate:
+    command: [/usr/local/bin/generate.sh]
+  discover:
+    find:
+      glob: "**/Chart.yaml"
