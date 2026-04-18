@@ -34,7 +34,7 @@ COPY --chown=argocd:argocd plugin.yaml /home/argocd/cmp-server/config/plugin.yam
 COPY --chown=argocd:argocd generate.sh /usr/local/bin/generate.sh
 RUN chmod +x /usr/local/bin/generate.sh
 
-USER argocd
+USER 999
 
 # argocd-cmp-server is bind-mounted at runtime via the var-files emptyDir volume
 # populated by the copyutil initContainer already present in argocd-repo-server
