@@ -24,8 +24,8 @@ RUN curl -sSL "https://github.com/FiloSottile/age/releases/download/v${AGE_VERSI
     | tar xz -C /usr/local/bin --strip-components=1 age/age age/age-keygen
 
 # argocd user — UID 999 matches ArgoCD's default, required for argocd-cmp-server socket auth
-RUN addgroup -g 999 argocd \
-    && adduser -D -u 999 -G argocd argocd \
+# GID is auto-assigned (Alpine 3.20 has GID 999 in use by a system group)
+RUN adduser -D -u 999 argocd \
     && mkdir -p /home/argocd/cmp-server/config /home/argocd/cmp-server/plugins \
     && chown -R argocd:argocd /home/argocd
 
