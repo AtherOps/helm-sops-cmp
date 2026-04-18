@@ -23,9 +23,10 @@ RUN curl -sSL "https://github.com/getsops/sops/releases/download/v${SOPS_VERSION
 RUN curl -sSL "https://github.com/FiloSottile/age/releases/download/v${AGE_VERSION}/age-v${AGE_VERSION}-linux-${TARGETARCH}.tar.gz" \
     | tar xz -C /usr/local/bin --strip-components=1 age/age age/age-keygen
 
-# argocd user — UID 999 matches ArgoCD's default, required for argocd-cmp-server socket auth
-# GID is auto-assigned (Alpine 3.20 has GID 999 in use by a system group)
-RUN adduser -D -u 999 argocd \
+# argocd user — UID 999 matches ArgoCD's default for socket compatibility
+# Alpine 3.20 uses GID 999 for the ping group, so we use GID 1000 instead
+RUN addgroup -g 1000 argocd \
+    && adduser -D -u 999 -G argocd argocd \
     && mkdir -p /home/argocd/cmp-server/config /home/argocd/cmp-server/plugins \
     && chown -R argocd:argocd /home/argocd
 
