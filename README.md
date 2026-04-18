@@ -2,7 +2,7 @@
 
 ArgoCD Config Management Plugin (CMP) sidecar that renders Helm charts with SOPS/age-encrypted secret files.
 
-**Image:** `ghcr.io/atherop/helm-sops-cmp:latest`
+**Image:** `ghcr.io/atherops/helm-sops-cmp:latest`
 
 ## What it does
 
@@ -49,7 +49,7 @@ repoServer:
   extraContainers:
     - name: helm-sops-cmp
       command: [/var/run/argocd/argocd-cmp-server]
-      image: ghcr.io/atherop/helm-sops-cmp:latest
+      image: ghcr.io/atherops/helm-sops-cmp:latest
       imagePullPolicy: Always
       env:
         - name: SOPS_AGE_KEY_FILE
